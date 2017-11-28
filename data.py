@@ -1,4 +1,5 @@
 from individuo import Individuo
+from team import Time
 import random
 
 
@@ -103,9 +104,6 @@ class Data:
         p = random.randint(0, len(self.v_positions[self.V_POSITIONS['RW']]) - 1)
         players.append(self.v_positions[self.V_POSITIONS['RW']][p])
 
-        for player in players:
-            print player.position, player.name, player.overall
-
         return players
 
     def generate_data_set(self):
@@ -119,4 +117,8 @@ class Data:
             individuo = Individuo(overall, price, name, position)
             self.v_positions[self.PLAYERS[individuo.position]].append(individuo)
 
-        self.random_squad()
+    def generate_squads(self, qtd):
+        random_squads = []
+        for x in xrange(1, qtd):
+            random_squads.append(Time(self.random_squad()))
+        return random_squads

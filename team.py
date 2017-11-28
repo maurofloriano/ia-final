@@ -1,10 +1,7 @@
-from individuo import Individuo
-
-
 class Time:
     def __init__(self, players):
         self.team = players
-        self.price = self.get_price()
+        # self.price = self.get_price()
         self.fit = self.get_fit()
         self.acumulado = 0
 

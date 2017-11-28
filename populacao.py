@@ -1,20 +1,18 @@
-from time import Time
-from data import Data
 import random
 
 
 class Populacao:
-    def __init__(self, size):
-        self.size = size
-        self.populacao = []
+    def __init__(self, populacao):
+        self.populacao = populacao
+        self.size = len(populacao)
         self.acumulado = 0
         self.selecionado = ''
         self.selecionados = []
 
-    def calculate_acumalate(self):
+    def calcular_acumulado(self):
         self.acumulado = 0
         for time in self.populacao:
-            self.acumualdo += time.fit
+            self.acumulado += time.fit
             time.acumulado = self.acumulado
 
     def selecionar_melhor(self):
