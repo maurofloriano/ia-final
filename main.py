@@ -14,7 +14,7 @@ def prepare_data(file_name):
 
 if __name__ == "__main__":
     data = prepare_data('CompleteDataset.csv')
-    random_squads = data.generate_squads(301)
+    random_squads = data.generate_squads(1001)
     populacao = Populacao(random_squads)
     genetico = AlgoritmoGenetico(populacao, data)
-    genetico.run(100)
+    genetico.run(500)

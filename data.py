@@ -62,59 +62,79 @@ class Data:
         players = []
         #  GK
         p = random.randint(0, len(self.v_positions[self.V_POSITIONS['GK']]) - 1)
-        players.append(self.v_positions[self.V_POSITIONS['GK']][p])
+        individuo = self.v_positions[self.V_POSITIONS['GK']][p]
+        individuo.position_data = p
+        players.append(individuo)
 
         #  LB
         p = random.randint(0, len(self.v_positions[self.V_POSITIONS['LB']]) - 1)
-        players.append(self.v_positions[self.V_POSITIONS['LB']][p])
+        individuo = self.v_positions[self.V_POSITIONS['LB']][p]
+        individuo.position_data = p
+        players.append(individuo)
 
         #  RB
         p = random.randint(0, len(self.v_positions[self.V_POSITIONS['RB']]) - 1)
-        players.append(self.v_positions[self.V_POSITIONS['RB']][p])
+        individuo = self.v_positions[self.V_POSITIONS['RB']][p]
+        individuo.position_data = p
+        players.append(individuo)
 
         #  CB 1
         p = random.randint(0, len(self.v_positions[self.V_POSITIONS['CB']]) - 1)
-        players.append(self.v_positions[self.V_POSITIONS['CB']][p])
+        individuo = self.v_positions[self.V_POSITIONS['CB']][p]
+        individuo.position_data = p
+        players.append(individuo)
 
         #  CB 2
         p = random.randint(0, len(self.v_positions[self.V_POSITIONS['CB']]) - 1)
-        players.append(self.v_positions[self.V_POSITIONS['CB']][p])
+        individuo = self.v_positions[self.V_POSITIONS['CB']][p]
+        individuo.position_data = p
+        players.append(individuo)
 
         #  CDM
         p = random.randint(0, len(self.v_positions[self.V_POSITIONS['CDM']]) - 1)
-        players.append(self.v_positions[self.V_POSITIONS['CDM']][p])
+        individuo = self.v_positions[self.V_POSITIONS['CDM']][p]
+        individuo.position_data = p
+        players.append(individuo)
 
         #  CM
         p = random.randint(0, len(self.v_positions[self.V_POSITIONS['CM']]) - 1)
-        players.append(self.v_positions[self.V_POSITIONS['CM']][p])
+        individuo = self.v_positions[self.V_POSITIONS['CM']][p]
+        individuo.position_data = p
+        players.append(individuo)
 
         #  CM
         p = random.randint(0, len(self.v_positions[self.V_POSITIONS['CM']]) - 1)
-        players.append(self.v_positions[self.V_POSITIONS['CM']][p])
+        individuo = self.v_positions[self.V_POSITIONS['CM']][p]
+        individuo.position_data = p
+        players.append(individuo)
 
         #  LW
         p = random.randint(0, len(self.v_positions[self.V_POSITIONS['LW']]) - 1)
-        players.append(self.v_positions[self.V_POSITIONS['LW']][p])
+        individuo = self.v_positions[self.V_POSITIONS['LW']][p]
+        individuo.position_data = p
+        players.append(individuo)
 
         #  ST
         p = random.randint(0, len(self.v_positions[self.V_POSITIONS['ST']]) - 1)
-        players.append(self.v_positions[self.V_POSITIONS['ST']][p])
+        individuo = self.v_positions[self.V_POSITIONS['ST']][p]
+        individuo.position_data = p
+        players.append(individuo)
 
         #  RW
         p = random.randint(0, len(self.v_positions[self.V_POSITIONS['RW']]) - 1)
-        players.append(self.v_positions[self.V_POSITIONS['RW']][p])
+        individuo = self.v_positions[self.V_POSITIONS['RW']][p]
+        individuo.position_data = p
+        players.append(individuo)
 
         return players
 
     def generate_data_set(self):
         for index, player in self.df.iterrows():
-            if index > 1000:
-                break
             position = self.get_position(player['Preferred Positions'])
             overall = player['Overall']
             price = player['Value']
             name = player['Name']
-            individuo = Individuo(overall, price, name, position)
+            individuo = Individuo(overall, price, name, position, 0)
             self.v_positions[self.PLAYERS[individuo.position]].append(individuo)
 
     def generate_squads(self, qtd):

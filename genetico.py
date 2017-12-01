@@ -1,4 +1,5 @@
 import random
+import math
 from team import Time
 import matplotlib.pyplot as plt
 
@@ -17,7 +18,8 @@ class AlgoritmoGenetico:
         return False
 
     def cruzamento(self, pai1, pai2):
-        team1 = team2 = []
+        team1 = []
+        team2 = []
         aux = True
         for player1, player2 in zip(pai1.team, pai2.team):
             if aux:
@@ -39,9 +41,14 @@ class AlgoritmoGenetico:
         return False
 
     def mutacao(self, team):
-        jogadores = self.data.v_positions[7]
-        select_player = random.randint(0, len(jogadores) - 1)
-        team[9] = jogadores[select_player]
+        random_n = random.randint(-1, 1)
+        for index, player in enumerate(team):
+            if self.deve_mutar(0.1):
+                jogadores = self.data.v_positions[self.data.PLAYERS[player.position]]
+                select_player = (player.position_data + random_n) % len(jogadores)
+                if select_player < 0:
+                    select_player = 0
+                team[index] = jogadores[select_player]
         return team
 
     def run(self, geracoes):
@@ -54,16 +61,15 @@ class AlgoritmoGenetico:
             self.populacao.populacao = selecionados
             i = 0
             while(i < len(selecionados)):
-                if self.deve_cruzar(0.7):
+                if self.deve_cruzar(0.3):
                     filhos = self.cruzamento(self.populacao.populacao[i], self.populacao.populacao[i + 1])
                     self.populacao.populacao[i] = filhos[0]
                     self.populacao.populacao[i + 1] = filhos[1]
                 i += 2
             i = 0
             while(i < len(self.populacao.populacao)):
-                if self.deve_mutar(0.3):
-                    time = self.mutacao(self.populacao.populacao[i].team)
-                    self.populacao.populacao[i] = Time(time)
+                time = self.mutacao(self.populacao.populacao[i].team)
+                self.populacao.populacao[i] = Time(time)
                 i += 1
             T += 1
             index = 0
@@ -75,7 +81,15 @@ class AlgoritmoGenetico:
                     indexAtual = index
             if(self.populacao.populacao[indexAtual].fit < selecionado.fit):
                 self.populacao.populacao[indexAtual] = selecionado
-
+            fit_medio = self.populacao.acumulado / self.populacao.size
+            self.fit_medio.append(int(fit_medio))
             self.populacao.calcular_acumulado()
+
+        melhor = self.populacao.selecionar_melhor()
+        for i in melhor.team:
+            print i.name, i.overall
+
         plt.plot(self.fitMelhor)
+        plt.plot(self.fit_medio)
+
         plt.show()
